@@ -20,6 +20,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 app.get('/city',(req,res)=>{
+  console.log("allo allo");
   const cityname = req.query.name;
   let resArray=[];
   request({
@@ -45,7 +46,6 @@ app.get('/city',(req,res)=>{
       //getImageOfPlace(photo);
       resArray[i]=Object.assign({},placeObject);
     }
-    console.log("allo allo");
     res.send(resArray);
   });
 });
