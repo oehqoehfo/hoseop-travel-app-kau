@@ -9,6 +9,9 @@
     "start:dev": "nodemon src/index.js",
     "build":"cd client && npm run build"
   },
+  "engines": {
+    "node": "18.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oehqoehfo/hoseop-travel-app-kau.git"
