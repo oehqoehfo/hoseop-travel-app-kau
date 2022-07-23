@@ -28,7 +28,7 @@ module.exports = {
       }),
       new CopyWebpackPlugin({
         patterns: [
-            { from: 'public', 
+            { from: 'public/**/*', 
               to: 'dist',
               globOptions:{
                 ignore:['**/index.html']
