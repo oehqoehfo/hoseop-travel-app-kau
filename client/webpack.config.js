@@ -30,7 +30,9 @@ module.exports = {
         patterns: [
             { from: 'public', 
               to: 'dist',
-              ignore:['**/index.html']
+              globOptions:{
+                ignore:['**/index.html']
+              }
             }
         ]
     })
