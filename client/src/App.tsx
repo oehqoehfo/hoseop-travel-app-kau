@@ -41,7 +41,7 @@ const SearchPanel=({setResult}:searchProps)=>{
             ?alert("No special characters are allowed")
             //send request to server if no special character is found
             //:fetch("//localhost:3000/city?name="+searchValue,{
-            :fetch(serverURL+"city?name="+searchValue,{
+            :fetch("https://travel-app-kau.herokuapp.com/city?name="+searchValue,{
                 method:'GET',
                 credentials:'include',
                 headers:{
