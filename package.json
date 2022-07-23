@@ -1,0 +1,28 @@
+{
+  "name": "travel-app-kau",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
+    "build":"cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oehqoehfo/hoseop-travel-app-kau.git"
+  },
+  "author": "Ho Seop Jeong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oehqoehfo/hoseop-travel-app-kau/issues"
+  },
+  "homepage": "https://github.com/oehqoehfo/hoseop-travel-app-kau#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "request": "^2.88.2"
+  }
+}

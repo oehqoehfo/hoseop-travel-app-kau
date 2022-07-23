@@ -1,0 +1,46 @@
+{
+  "name": "travel-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve  --hot --open",
+    "build": "webpack --config webpack.config.js --mode development",
+    "server": "cd server && npm start"
+  },
+  "engines": {
+    "node": "18.4.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "postcss-loader": "^7.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "postcss": "^8.4.14",
+    "react-refresh": "^0.14.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.1.4",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
+  }
+}
