@@ -19,7 +19,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname,  "../client/dist", "index.html"));
   });
 }
-//app.use(express.static(path.join(__dirname, '../dist')));
 app.get('/city',(req,res)=>{
   const cityname = req.query.name;
   let resArray=[];
@@ -52,7 +51,7 @@ app.get('/city',(req,res)=>{
 });
 
 app.listen(process.env.PORT||port, () => {
-  console.log(`Example app  listening on port ${port}!`)
+  console.log(`Example app  listening on port ${process.env.PORT||port}!`)
 });
 
 async function getImageOfPlace(place){
