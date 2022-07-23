@@ -28,12 +28,8 @@ module.exports = {
       }),
       new CopyWebpackPlugin({
         patterns: [
-            { from: 'public/**/*', 
-              to: 'dist',
-              globOptions:{
-                ignore:['**/index.html']
-              }
-            }
+          {from:'public/image', to:'dist'},
+          {from:'public/style', to:'dist'}
         ]
     })
     ].filter(Boolean),
