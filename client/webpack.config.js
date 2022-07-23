@@ -3,6 +3,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 dotenv.config();
 const isDevelopment = process.env.NODE_ENV !== "production";
 module.exports = {
