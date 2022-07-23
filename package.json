@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "start:dev": "nodemon src/index.js",
-    "heroku-prebuild": "npm install --dev",
+    "heroku-prebuild": "cd client && npm install --dev",
     "build":"cd client && npm run build"
   },
   "engines": {
