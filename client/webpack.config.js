@@ -24,7 +24,15 @@ module.exports = {
       isDevelopment && new ReactRefreshWebpackPlugin(),
       new webpack.DefinePlugin({
         "process.env":JSON.stringify(process.env)
-      })
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+            { from: 'public', 
+              to: 'dist',
+              ignore:['**/index.html']
+            }
+        ]
+    })
     ].filter(Boolean),
     resolve: {
       modules: [__dirname, "src", "node_modules"],
