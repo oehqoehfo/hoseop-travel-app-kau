@@ -49,6 +49,8 @@ const SearchPanel=({setResult}:searchProps)=>{
                     'Content-Type':'application/json'
                 }
             }).then((data:any)=>{
+                console.log("data");
+                console.log(data);
                 return data.json();
             }).then(data=>{
                 setResult(Object.entries(data));
