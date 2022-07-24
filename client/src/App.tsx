@@ -53,6 +53,7 @@ const SearchPanel=({setResult}:searchProps)=>{
                 console.log(data);
                 return data.json();
             }).then(data=>{
+                console.log(data);
                 setResult(Object.entries(data));
             })
         }
