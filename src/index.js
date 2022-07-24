@@ -47,6 +47,7 @@ app.get('/city',(req,res)=>{
       //getImageOfPlace(photo);
       resArray[i]=Object.assign({},placeObject);
     }
+    console.log(resArray);
     res.send(resArray);
   });
 });
