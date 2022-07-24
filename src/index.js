@@ -33,6 +33,10 @@ app.get('/city',(req,res)=>{
   },(err,request,body)=>{
     const object = JSON.parse(body);
     let photo;
+    console.log("request");
+    console.log(request);
+    console.log("body");
+    console.log(body);
     let placeObject={
       placeName:'',
       photo:''
