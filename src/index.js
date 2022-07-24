@@ -24,37 +24,41 @@ app.get('/city',(req,res)=>{
   console.log("allo allo");
   const cityname = req.query.name;
   let resArray=[];
-  request({
-    uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
-    qs:{
-      query:"point of interest in"+cityname,
-      key:apiKey
-    }
-  },(err,request,body)=>{
-    const object = JSON.parse(body);
-    let photo;
-    console.log("request");
-    console.log(request);
-    console.log("body");
-    console.log(body);
-    let placeObject={
-      placeName:'',
-      photo:''
-    }
-    for(let i=0;i<object.results.length;i++){
-      if(object.results[i].photos!==undefined){
-        placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
-        placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
-        console.log(placeObject['placeName']);
+  try{
+    request({
+      uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      qs:{
+        query:"point of interest in"+cityname,
+        key:apiKey
       }
-      
-      
-      //getImageOfPlace(photo);
-      resArray[i]=Object.assign({},placeObject);
-    }
-    console.log(resArray);
-    res.send(resArray);
-  });
+    },(err,request,body)=>{
+      const object = JSON.parse(body);
+      let photo;
+      console.log("request");
+      console.log(request);
+      console.log("body");
+      console.log(body);
+      let placeObject={
+        placeName:'',
+        photo:''
+      }
+      for(let i=0;i<object.results.length;i++){
+        if(object.results[i].photos!==undefined){
+          placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
+          placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+          console.log(placeObject['placeName']);
+        }
+        
+        
+        //getImageOfPlace(photo);
+        resArray[i]=Object.assign({},placeObject);
+      }
+      console.log(resArray);
+      res.send(resArray);
+    });
+  }catch(e){
+    console.log(e);
+  }
 });
 
 app.listen(process.env.PORT||port, () => {
