@@ -33,7 +33,6 @@ app.get('/city',(req,res)=>{
   },(err,request,body)=>{
     const object = JSON.parse(body);
     let photo;
-    console.log("request");
     let placeObject={
       placeName:'',
       photo:''
@@ -42,6 +41,7 @@ app.get('/city',(req,res)=>{
       if(object.results[i].photos!==undefined){
         placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
         placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+        console.log(placeObject['placeName']);
       }
       
       
