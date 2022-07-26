@@ -6,49 +6,47 @@ const request = require('request');
 const words = require('./words');
 require('dotenv').config();
 const path = require('path');
-/*
-const apiKey = process.env.google_place_api_key;
+
+const apiKey=process.env.apiKey;
 app.use(cors({
   origin:'http://localhost:8080',
   credentials:true
-}));*/
-const apiKey=process.env.apiKey;
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, 'client/dist')));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname,  "client/dist", "index.html"));
-  });
-}
+}));
+
 //app.use(express.static(path.join(__dirname, '../dist')));
 app.get('/city',(req,res)=>{
   const cityname = req.query.name;
   let resArray=[];
-  request({
-    uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
-    qs:{
-      query:"point of interest in"+cityname,
-      key:apiKey
-    }
-  },(err,request,body)=>{
-    const object = JSON.parse(body);
-    let photo;
-    let placeObject={
-      placeName:'',
-      photo:''
-    }
-    for(let i=0;i<object.results.length;i++){
-      if(object.results[i].photos!==undefined){
-        placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
-        placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+  try{
+    request({
+      uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      qs:{
+        query:"point of interest in"+cityname,
+        key:apiKey
       }
-      
-      
-      //getImageOfPlace(photo);
-      resArray[i]=Object.assign({},placeObject);
-    }
-    
-    res.send(resArray);
-  });
+    },(err,request,body)=>{
+      const object = JSON.parse(body);
+      console.log(object);
+      let photo;
+      let placeObject={
+        placeName:'',
+        photo:''
+      }
+      for(let i=0;i<object.results.length;i++){
+        if(object.results[i].photos!==undefined){
+          placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
+          placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+        }
+        
+        
+        //getImageOfPlace(photo);
+        resArray[i]=Object.assign({},placeObject);
+      }
+      res.send(resArray);
+    });
+  }catch(e){
+    console.log(e);
+  }
 });
 
 app.listen(process.env.PORT||port, () => {
@@ -63,4 +61,11 @@ async function getImageOfPlace(place){
   }catch(e){
     console.log(e);
   }
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, 'client/dist')));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname,  "client/dist", "index.html"));
+  });
 }

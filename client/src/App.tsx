@@ -1,5 +1,6 @@
 import React, { SyntheticEvent,useRef,useState } from "react";
 import Result from './Result';
+import { Route,Routes } from "react-router-dom";
 const serverURL = process.env.serverURL;
 //main application
  const App:React.FC=()=>{
@@ -14,9 +15,11 @@ const serverURL = process.env.serverURL;
         {
             searchResult.length===0
             ?""
-            :<Result result={searchResult}/>}
+            :
+            <Result result={searchResult}/>
+            }
         <footer className={searchResult.length===0?"absolute":""}>
-        <p>All data are received using Google Place API. {"result: " +searchResult}
+        <p>All data are received using Google Place API. 
         <br/>
         This website is not actual working website and is made just for educational purpose. 
         </p>
@@ -40,8 +43,8 @@ const SearchPanel=({setResult}:searchProps)=>{
             regexValidate(searchValue)
             ?alert("No special characters are allowed")
             //send request to server if no special character is found
-            //:fetch("//localhost:3000/city?name="+searchValue,{
-            :fetch(serverURL+"/city?name="+searchValue,{
+            :fetch("//localhost:3000/city?name="+searchValue,{
+            //:fetch(serverURL+"/city?name="+searchValue,{
                 method:'GET',
                 credentials:'include',
                 headers:{
@@ -51,10 +54,14 @@ const SearchPanel=({setResult}:searchProps)=>{
             }).then((data:any)=>{
                 return data.json();
             }).then(data=>{
+                changeURLofPage(searchValue);
                 setResult(Object.entries(data));
             })
         }
         e.preventDefault();
+    }
+    const changeURLofPage=(value:string)=>{
+        window.history.pushState("",value,`/city?name=${value}`);
     }
     const regexValidate = (value:string)=>{
         const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
