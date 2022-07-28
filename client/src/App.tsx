@@ -17,7 +17,7 @@ const serverURL = process.env.serverURL;
             searchResult.length===0
             ?""
             :
-            <Result result={searchResult}/>
+            <Result result={searchResult} setResult={setSearchResultFunc}/>
             }
         <footer className={searchResult.length===0?"absolute":""}>
         <p>All data are received using Google Place API. 

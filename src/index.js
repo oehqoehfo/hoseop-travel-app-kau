@@ -26,19 +26,18 @@ app.get('/city',(req,res)=>{
       }
     },(err,request,body)=>{
       const object = JSON.parse(body);
-      console.log(object);
       let photo;
       let placeObject={
         placeName:'',
-        photo:''
+        photo:'',
+        id:''
       }
       for(let i=0;i<object.results.length;i++){
         if(object.results[i].photos!==undefined){
           placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
           placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+          placeObject['id']=object.results[i].place_id;
         }
-        
-        
         //getImageOfPlace(photo);
         resArray[i]=Object.assign({},placeObject);
       }
