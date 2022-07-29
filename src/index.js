@@ -6,8 +6,8 @@ const request = require('request');
 const words = require('./words');
 require('dotenv').config();
 const path = require('path');
-const HttpsProxyAgent = require('https-proxy-agent');
-const agent = new HttpsProxyAgent(HttpsProxyAgent);
+const HttpsProxy = require('https-proxy-agent');
+const agent = new HttpsProxyAgent(HttpsProxy);
 
 const apiKey=process.env.apiKey;
 app.use(cors({
