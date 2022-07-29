@@ -70,6 +70,7 @@ app.get('/city',(req,res)=>{
             placeObject['id']=object.results[i].place_id;
           }
           //getImageOfPlace(photo);
+          console.log(placeObject);
           resArray[i]=Object.assign({},placeObject);
         }
         res.send(resArray);
