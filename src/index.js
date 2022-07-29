@@ -6,31 +6,22 @@ const request = require('request');
 const words = require('./words');
 require('dotenv').config();
 const path = require('path');
+const HttpsProxyAgent = require('https-proxy-agent');
+const agent = new HttpsProxyAgent(HttpsProxyAgent);
 
 const apiKey=process.env.apiKey;
 app.use(cors({
   origin:'http://localhost:8080',
   credentials:true
-<<<<<<< HEAD
-}));*/
-const apiKey=process.env.apiKey;
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname,  "../client/dist", "index.html"));
-  });
-  
-}
-=======
 }));
 
 //app.use(express.static(path.join(__dirname, '../dist')));
->>>>>>> main
 app.get('/city',(req,res)=>{
   console.log("allo allo");
   const cityname = req.query.name;
   let resArray=[];
   try{
+    if(process.env.NODE_ENV==="development"){
     request({
       uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
       qs:{
@@ -40,43 +31,50 @@ app.get('/city',(req,res)=>{
     },(err,request,body)=>{
       const object = JSON.parse(body);
       let photo;
-<<<<<<< HEAD
-      console.log("request");
-      console.log(request);
-      console.log("body");
-      console.log(body);
-      let placeObject={
-        placeName:'',
-        photo:''
-=======
       let placeObject={
         placeName:'',
         photo:'',
         id:''
->>>>>>> main
       }
       for(let i=0;i<object.results.length;i++){
         if(object.results[i].photos!==undefined){
           placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
           placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
-<<<<<<< HEAD
-          console.log(placeObject['placeName']);
-        }
-        
-        
-        //getImageOfPlace(photo);
-        resArray[i]=Object.assign({},placeObject);
-      }
-      console.log(resArray);
-=======
           placeObject['id']=object.results[i].place_id;
         }
         //getImageOfPlace(photo);
         resArray[i]=Object.assign({},placeObject);
       }
->>>>>>> main
       res.send(resArray);
     });
+    }else if(process.env.NODE_ENV==="production"){
+      request({
+        uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
+        qs:{
+          query:"point of interest in"+cityname,
+          key:apiKey
+        },
+        agent:agent
+      },(err,request,body)=>{
+        const object = JSON.parse(body);
+        let photo;
+        let placeObject={
+          placeName:'',
+          photo:'',
+          id:''
+        }
+        for(let i=0;i<object.results.length;i++){
+          if(object.results[i].photos!==undefined){
+            placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
+            placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+            placeObject['id']=object.results[i].place_id;
+          }
+          //getImageOfPlace(photo);
+          resArray[i]=Object.assign({},placeObject);
+        }
+        res.send(resArray);
+      });
+    }
   }catch(e){
     console.log(e);
   }
