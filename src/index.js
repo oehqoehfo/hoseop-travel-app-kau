@@ -49,7 +49,7 @@ app.get('/city',(req,res)=>{
       res.send(resArray);
     });
     }else if(process.env.NODE_ENV==="production"){
-      request({
+      /*request({
         uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
         qs:{
           query:"point of interest in"+cityname,
@@ -57,6 +57,33 @@ app.get('/city',(req,res)=>{
         },
         agent:agent
       },(err,request,body)=>{
+        const object = JSON.parse(body);
+        let photo;
+        let placeObject={
+          placeName:'',
+          photo:'',
+          id:''
+        }
+        for(let i=0;i<object.results.length;i++){
+          if(object.results[i].photos!==undefined){
+            placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
+            placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+            placeObject['id']=object.results[i].place_id;
+          }
+          //getImageOfPlace(photo);
+          console.log(placeObject);
+          resArray[i]=Object.assign({},placeObject);
+        }
+        res.send(resArray);
+      });*/
+      const options={
+        proxy: process.env.QUOTAGUARDSTATIC_URL,
+        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?place of interest='+cityname+'&key='+apiKey,
+        headers: {
+            'User-Agent': 'node.js'
+        }
+      };
+      request(options,function(err,request,body){
         const object = JSON.parse(body);
         let photo;
         let placeObject={
