@@ -1,6 +1,7 @@
 import React from 'react';
 import Form,{searchProps} from './Form';
 import {Link,Route,Routes} from 'react-router-dom';
+import Item from './Item';
 interface resultProps{
     result:Array<Object>,
     setResult:(value: Array<Object>) => void
@@ -40,7 +41,7 @@ const Result=({result,setResult}:resultProps)=>{
                     </div>
             }
             <Routes>
-                <Route path="/place/:id"></Route>
+                <Route path="/place/:id" element={Item}></Route>
             </Routes>
         </div>
     )
