@@ -1,5 +1,7 @@
 import React, { SyntheticEvent,useRef,useState } from "react";
 import Result from './Result';
+import { Route,Routes } from "react-router-dom";
+import Form,{searchProps} from './Form';
 const serverURL = process.env.serverURL;
 //main application
  const App:React.FC=()=>{
@@ -10,13 +12,15 @@ const serverURL = process.env.serverURL;
     
     return (
     <section id="App">
-        <SearchPanel setResult={setSearchResultFunc}/>
+        <Main setResult={setSearchResultFunc}/>
         {
             searchResult.length===0
             ?""
-            :<Result result={searchResult}/>}
+            :
+            <Result result={searchResult} setResult={setSearchResultFunc}/>
+            }
         <footer className={searchResult.length===0?"absolute":""}>
-        <p>All data are received using Google Place API. {"result: " +searchResult}
+        <p>All data are received using Google Place API. 
         <br/>
         This website is not actual working website and is made just for educational purpose. 
         </p>
@@ -26,49 +30,15 @@ const serverURL = process.env.serverURL;
 }
 export default App;
 
-interface searchProps{
-    setResult:(value: Array<Object>) => void
-}
-const SearchPanel=({setResult}:searchProps)=>{
+
+const Main=({setResult}:searchProps)=>{
     const searchElementRef = useRef(null as any);
-    const search =(e:SyntheticEvent)=>{
-        const searchValue = searchElementRef.current.value;
-        if(typeof searchValue!=="string"){
-            alert("only text allowed");
-        }else{
-            //validate user search input
-            regexValidate(searchValue)
-            ?alert("No special characters are allowed")
-            //send request to server if no special character is found
-            //:fetch("//localhost:3000/city?name="+searchValue,{
-            :fetch("https://travel-app-kau.herokuapp.com/city?name="+searchValue,{
-                method:'GET',
-                credentials:'include',
-                headers:{
-                    'Accept':'application/json',
-                    'Content-Type':'application/json'
-                }
-            }).then((data:any)=>{
-                console.log("data");
-                console.log(data);
-                return data.json();
-            }).then(data=>{
-                console.log(data);
-                setResult(Object.entries(data));
-            })
-        }
-        e.preventDefault();
-    }
-    const regexValidate = (value:string)=>{
-        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        return specialChars.test(value);
-    }
+    
     return(
         <section className="text-center absoluteCenter">
             <h1 className="text-white text-lg uppercase mb-5">Wanna travel somewhere?</h1>
-            <form action="/" method="GET" onSubmit={e=>search(e)}>
-                <input type="text" placeholder="SEARCH FOR CITY ex:London" ref={searchElementRef}/>
-            </form>
+            <Form setResult={setResult}/>
         </section>
     )
 }
+

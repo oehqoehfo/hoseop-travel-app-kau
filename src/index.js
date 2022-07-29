@@ -6,11 +6,12 @@ const request = require('request');
 const words = require('./words');
 require('dotenv').config();
 const path = require('path');
-/*
-const apiKey = process.env.google_place_api_key;
+
+const apiKey=process.env.apiKey;
 app.use(cors({
   origin:'http://localhost:8080',
   credentials:true
+<<<<<<< HEAD
 }));*/
 const apiKey=process.env.apiKey;
 if (process.env.NODE_ENV === "production") {
@@ -20,6 +21,11 @@ if (process.env.NODE_ENV === "production") {
   });
   
 }
+=======
+}));
+
+//app.use(express.static(path.join(__dirname, '../dist')));
+>>>>>>> main
 app.get('/city',(req,res)=>{
   console.log("allo allo");
   const cityname = req.query.name;
@@ -34,6 +40,7 @@ app.get('/city',(req,res)=>{
     },(err,request,body)=>{
       const object = JSON.parse(body);
       let photo;
+<<<<<<< HEAD
       console.log("request");
       console.log(request);
       console.log("body");
@@ -41,11 +48,18 @@ app.get('/city',(req,res)=>{
       let placeObject={
         placeName:'',
         photo:''
+=======
+      let placeObject={
+        placeName:'',
+        photo:'',
+        id:''
+>>>>>>> main
       }
       for(let i=0;i<object.results.length;i++){
         if(object.results[i].photos!==undefined){
           placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
           placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
+<<<<<<< HEAD
           console.log(placeObject['placeName']);
         }
         
@@ -54,6 +68,13 @@ app.get('/city',(req,res)=>{
         resArray[i]=Object.assign({},placeObject);
       }
       console.log(resArray);
+=======
+          placeObject['id']=object.results[i].place_id;
+        }
+        //getImageOfPlace(photo);
+        resArray[i]=Object.assign({},placeObject);
+      }
+>>>>>>> main
       res.send(resArray);
     });
   }catch(e){
@@ -73,4 +94,11 @@ async function getImageOfPlace(place){
   }catch(e){
     console.log(e);
   }
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, 'client/dist')));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname,  "client/dist", "index.html"));
+  });
 }
