@@ -48,7 +48,7 @@ app.get('/city',(req,res)=>{
       }
       res.send(resArray);
     });
-    }else if(process.env.NODE_ENV==="production"){
+    }else if(process.env.NODE_ENV === "production"){
       /*request({
         uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
         qs:{
