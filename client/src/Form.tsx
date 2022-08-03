@@ -1,9 +1,12 @@
 import React,{SyntheticEvent,useRef} from 'react';
+import { useDispatch } from 'react-redux';
+import { search as searchAction} from './redux/action_functions';
 export interface searchProps{
     setResult:(value: Array<Object>) => void
 }
 const Form = ({setResult}:searchProps)=>{
     const searchElementRef = useRef(null as any);
+    const dispatch = useDispatch();
     const search = (e:SyntheticEvent)=>{
         const searchValue = searchElementRef.current.value;
         if(typeof searchValue!=="string"){
@@ -26,6 +29,7 @@ const Form = ({setResult}:searchProps)=>{
                 }).then(data=>{
                     changeURLofPage(searchValue);
                     setResult(Object.entries(data));
+                    dispatch(searchAction());
                 })
             
 
