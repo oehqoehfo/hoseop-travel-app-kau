@@ -13,8 +13,6 @@ interface resultProps{
 const apiKey=process.env.apiKey;
 const Result=({result,setResult}:resultProps)=>{
     const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
-    console.log("get redux state");
-    console.log(searchReducerObject);
     return(
         <div id="Result" className="w-100">
             <div className="w-100">

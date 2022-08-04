@@ -16,3 +16,10 @@ export const removeSearch=()=>{
         })
     }
 }
+export const viewItem=()=>{
+    return(dispatch:Dispatch<Action>)=>{
+        dispatch({
+            type:ActionType.VIEW_ITEM
+        })
+    }
+}
