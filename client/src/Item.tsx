@@ -8,7 +8,9 @@ const Item = ()=>{
         dispatch(removeSearch());
     },[]);
     return(
-        <div></div>
+        <div>
+            Hello
+        </div>
     )
 }
 export default Item;

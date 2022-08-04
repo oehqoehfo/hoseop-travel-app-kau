@@ -1,9 +1,12 @@
 import { combineReducers } from "redux";
 import { Action } from "./action";
-const initialState = {
+type State={
+    searched:boolean
+}
+const initialState:State = {
     searched:false
 }
-const searchReducer=(state: object =initialState,action:Action):object =>{
+const searchReducer=(state: object =initialState,action:Action):State =>{
     switch(action.type){
         case "SEARCH":
             return{
@@ -14,11 +17,13 @@ const searchReducer=(state: object =initialState,action:Action):object =>{
                 searched:false
             }
         default :
-            return state;
+            return{
+                searched:false
+            };
     }
 }
 const reducers = combineReducers({
-    search:searchReducer
+    searchReducer
 });
 export default reducers;
-export type RootReducer = ReturnType<typeof reducers>
+export type ReducerState = ReturnType<typeof reducers>
