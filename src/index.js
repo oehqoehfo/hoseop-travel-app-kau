@@ -47,7 +47,56 @@ app.get('/city',(req,res)=>{
     console.log(e);
   }
 });
-
+app.get('/item',(req,res)=>{
+  console.log("item");
+  const itemID = req.query.id;
+  const itemObject={
+    name:"",
+    address:"",
+    opening_hours:null,
+    reviews:[]
+  }
+  try{
+    request({
+      uri:'https://maps.googleapis.com/maps/api/place/details/json',
+      qs:{
+        place_id:itemID,
+        key:apiKey,
+        language:'en'
+      }
+    },(err,req,body)=>{
+      const object = JSON.parse(body);
+      const result = object.result;
+      itemObject.name=object.result.name;
+      itemObject.address=loopAddress(result.address_components);
+      itemObject.opening_hours=result.opening_hours.weekday_text;
+      const englishReviews = getOnlyEnglishReviews(result.reviews);
+      itemObject.reviews=sortReviewsByRating(englishReviews);
+      res.send(itemObject);
+    })
+  }catch(e){
+    console.log(e);
+  }
+});
+const loopAddress=(addressComponent)=>{
+  let address='';
+  for(let i=0;i<addressComponent.length;i++){
+    address+=addressComponent[i].long_name+" ";
+  }
+  return address;
+}
+const getOnlyEnglishReviews=(reviews)=>{
+  let newReviews=[];
+  for(let i=0;i<reviews.length;i++){
+    if(reviews[i].language==="en"){
+      newReviews.push(reviews[i]);
+    }
+  }
+  return newReviews;
+}
+const sortReviewsByRating=(reviews)=>{
+  return reviews;
+}
 app.listen(process.env.PORT||port, () => {
   console.log(`Example app  listening on port ${port}!`)
 });
