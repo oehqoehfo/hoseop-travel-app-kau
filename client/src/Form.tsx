@@ -1,6 +1,6 @@
 import React,{SyntheticEvent,useRef} from 'react';
 import { useDispatch } from 'react-redux';
-import { search as searchAction} from './redux/action_functions';
+import { search as searchAction,setSearchKeyword} from './redux/action_functions';
 export interface searchProps{
     setResult:(value: Array<Object>) => void
 }
@@ -30,6 +30,7 @@ const Form = ({setResult}:searchProps)=>{
                     changeURLofPage(searchValue);
                     setResult(Object.entries(data));
                     dispatch(searchAction());
+                    dispatch(setSearchKeyword(searchValue));
                 })
             
 

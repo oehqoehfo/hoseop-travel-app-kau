@@ -13,6 +13,7 @@ interface resultProps{
 const apiKey=process.env.apiKey;
 const Result=({result,setResult}:resultProps)=>{
     const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
+    const searchKeyword = searchReducerObject.searchKeyword;
     return(
         <div id="Result" className="w-100">
             <div className="w-100">
@@ -41,9 +42,10 @@ const Result=({result,setResult}:resultProps)=>{
                         
                     }</div>
                     
-                :
-                    <div>
-                        <p>Unfortunately nothing is found :( {result.length}</p>    
+                    :
+                    <div className="absoluteCenter">
+                        <p>Unfortunately nothing was found :( </p>
+                        <p>Your search keyword: {searchKeyword}</p>    
                     </div>
                 :
                 null

@@ -1,7 +1,8 @@
 export enum ActionType{
     SEARCH = "SEARCH",
     REMOVE_SEARCH = "REMOVE_SEARCH",
-    VIEW_ITEM="VIEW_ITEM"
+    VIEW_ITEM="VIEW_ITEM",
+    GET_SEARCH_KEYWORD="SET_SEARCH_KEYWORD"
 }
 
 interface SearchAction{
@@ -13,4 +14,8 @@ interface RemoveSearchAction{
 interface ViewItemAction{
     type:ActionType.VIEW_ITEM
 }
-export type Action = SearchAction|RemoveSearchAction|ViewItemAction
+interface SetSearchKeywordAction{
+    type:ActionType.GET_SEARCH_KEYWORD,
+    payload:String
+}
+export type Action = SearchAction|RemoveSearchAction|ViewItemAction|SetSearchKeywordAction

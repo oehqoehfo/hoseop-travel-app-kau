@@ -11,12 +11,12 @@ const serverURL = process.env.serverURL;
     const setSearchResultFunc = (value:Array<Object>)=>{
         setSearchResultState(value);
     }
-    
+    const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
     return (
     <section id="App">
         <Main setResult={setSearchResultFunc}/>
         {
-            searchResult.length===0
+            !searchReducerObject.searched
             ?""
             :
             <Result result={searchResult} setResult={setSearchResultFunc}/>
