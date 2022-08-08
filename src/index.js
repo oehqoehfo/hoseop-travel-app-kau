@@ -6,7 +6,8 @@ const request = require('request');
 const words = require('./words');
 require('dotenv').config();
 const path = require('path');
-
+const helmet = require("helmet");
+app.use(helmet.frameguard("deny"));
 const apiKey=process.env.apiKey;
 app.use(cors({
   origin:'http://localhost:8080',
@@ -48,7 +49,6 @@ app.get('/city',(req,res)=>{
   }
 });
 app.get('/item',(req,res)=>{
-  console.log("item");
   const itemID = req.query.id;
   const itemObject={
     name:"",
@@ -67,6 +67,7 @@ app.get('/item',(req,res)=>{
     },(err,req,body)=>{
       const object = JSON.parse(body);
       const result = object.result;
+      console.log(result);
       itemObject.name=object.result.name;
       itemObject.address=loopAddress(result.address_components);
       itemObject.opening_hours=result.opening_hours.weekday_text;

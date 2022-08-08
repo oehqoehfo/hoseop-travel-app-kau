@@ -16,7 +16,7 @@ const serverURL = process.env.serverURL;
     <section id="App">
         <Main setResult={setSearchResultFunc}/>
         {
-            !searchReducerObject.searched
+            !searchReducerObject.searched&&searchReducerObject.itemViewed===false
             ?""
             :
             <Result result={searchResult} setResult={setSearchResultFunc}/>
