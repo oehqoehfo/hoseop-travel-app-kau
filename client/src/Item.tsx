@@ -31,25 +31,40 @@ const Item= ()=>{
         });
     }
     return(
-        <div>
+        <div id="ItemDetailContainer">
             {Object.keys(itemData).length>0
             ?
             <div>
-                <p>{itemData.name}</p>
-                <p>{itemData.address}</p>
-                <p>{itemData.opening_hours}</p>
-                <ul>
+                <h1>{itemData.name}</h1>
+                <div id="DetailedInformationContainer">
+                    <figure className="inline-block">
+                        <img src="" alt="" />
+                    </figure>
+                    <div className="inline-block">
+                        <ul>
+                            <p>Opening hours:</p>
+                            {
+                                itemData.opening_hours.map((item,index)=>{
+                                    return <li>{item}</li>
+                                })
+                            }
+                        </ul>
+                        <p>{itemData.address}</p>
+                    </div>
+                </div>
+                <ul id="Comments">
+                    <h2>Comments</h2>
                     {
                         Object.keys(itemData.reviews).map((key,index)=>{
                             
                             return(
                             <li key={"item-"+index*index}>
-                                <div>
+                                <div className="commentDiv">
                                     <div>
-                                        <div>{itemData.reviews[index]['author_name']}</div>
-                                        <div>{itemData.reviews[index]['rating']}</div>
+                                        <div className="w-1/2 text-center">{itemData.reviews[index]['author_name']}</div>
+                                        <div className="w-1/2 text-center">{itemData.reviews[index]['rating']}/5</div>
                                     </div>
-                                    <div>{itemData.reviews[index]['text']}</div>
+                                    <div className="commentText">{itemData.reviews[index]['text']}</div>
                                 </div>
                             </li>
                             )
