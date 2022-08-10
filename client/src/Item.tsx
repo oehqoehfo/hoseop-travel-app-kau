@@ -44,9 +44,6 @@ const Item= ()=>{
             setItemDataStateFunc(data);
         });
     }
-    const getState=()=>{
-
-    }
     return(
         <div id="ItemDetailContainer">
             {Object.keys(itemData).length>0
@@ -80,10 +77,10 @@ const Item= ()=>{
                             <li key={"item-"+index*index}>
                                 <div className="commentDiv">
                                     <div>
-                                        <div className="w-1/2 text-center">{itemData?.reviews[index]['author_name']}</div>
-                                        <div className="w-1/2 text-center">{itemData?.reviews[index]['rating']}/5</div>
+                                        <div className="w-1/2 text-center">{itemData?.reviews[index]['author_name' as '0']}</div>
+                                        <div className="w-1/2 text-center">{itemData?.reviews[index]['rating' as '0']}/5</div>
                                     </div>
-                                    <div className="commentText">{itemData?.reviews[index]['text']}</div>
+                                    <div className="commentText">{itemData?.reviews[index]['text' as '0']}</div>
                                 </div>
                             </li>
                             )
