@@ -16,36 +16,37 @@ const Result=({result,setResult}:resultProps)=>{
     const searchKeyword = searchReducerObject.searchKeyword;
     return(
         <div id="Result" className="w-100">
-            <div className="w-100">
-                <Form setResult={setResult}/>
-            </div>
             {searchReducerObject.searched
                 ?
                 result.length>0 
                     ?
-                    <div className="flex justify-around">{
-                        result.map((item,index)=>{
-                            //return /<div className="card" key={"item-"+item+index}>{item[1]['placeName']}</div>
-                            return (
-                                <Link key={index} to={`/place/${item[1].id}`} className="item w-1/4 ">
-                                    <div key={"item-"+item+index} className="text-center text-white">
-                                        <div>
-                                            {<img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+item[1]['photo']+"&key="+apiKey}/>}
-                                        </div>    
-                                        <div>
-                                            <p>{item[1]['placeName']}</p>
-                                        </div>
-                                    </div> 
-                                </Link>
-                            )   
-                        })
-                        
-                    }</div>
-                    
+                    <div>
+                        <h1 className="searchKeyword">{searchKeyword}</h1>
+                        <Form setResult={setResult}/>
+                        <div className="flex justify-around">{
+                            result.map((item,index)=>{
+                                //return /<div className="card" key={"item-"+item+index}>{item[1]['placeName']}</div>
+                                return (
+                                    <Link key={index} to={`/place/${item[1].id}`} className="item w-1/3 md:w-1/4 ">
+                                        <div key={"item-"+item+index} className="text-center text-white">
+                                            <div>
+                                                {<img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+item[1]['photo']+"&key="+apiKey}/>}
+                                            </div>    
+                                            <div>
+                                                <p>{item[1]['placeName']}</p>
+                                            </div>
+                                        </div> 
+                                    </Link>
+                                )   
+                            })
+                            
+                        }</div>
+                    </div>
                     :
                     <div className="absoluteCenter">
                         <p>Unfortunately nothing was found :( </p>
-                        <p>Your search keyword: {searchKeyword}</p>    
+                        <p>Your search keyword: {searchKeyword}</p> 
+                        <Form setResult={setResult}/>   
                     </div>
                 :
                 null

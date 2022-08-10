@@ -54,7 +54,8 @@ app.get('/item',(req,res)=>{
     name:"",
     address:"",
     opening_hours:[],
-    reviews:[]
+    reviews:[],
+    photoRef:''
   }
   try{
     request({
@@ -75,6 +76,7 @@ app.get('/item',(req,res)=>{
       }
       const englishReviews = getOnlyEnglishReviews(result.reviews);
       itemObject.reviews=sortReviewsByRating(englishReviews);
+      itemObject.photoRef=result.photos[0].photo_reference;
       res.send(itemObject);
     })
   }catch(e){

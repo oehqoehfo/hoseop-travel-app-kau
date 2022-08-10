@@ -44,6 +44,7 @@ const Form = ({setResult}:searchProps)=>{
         const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
         return specialChars.test(value);
     }
+    
     return(
         <form action="/" method="GET" onSubmit={e=>search(e)}>
             <input type="text" placeholder="SEARCH FOR CITY ex:London" ref={searchElementRef}/>

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { removeSearch,viewItem } from './redux/action_functions';
+const apiKey=process.env.apiKey;
 const Item= ()=>{
     const dispatch = useDispatch();
     const [itemData,setItemDataState]=useState<Object>({});
@@ -37,19 +38,21 @@ const Item= ()=>{
             <div>
                 <h1>{itemData.name}</h1>
                 <div id="DetailedInformationContainer">
-                    <figure className="inline-block">
-                        <img src="" alt="" />
+                    <figure className="inline-block placeImage">
+                        <img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+itemData.photoRef+"&key="+apiKey}/>
                     </figure>
                     <div className="inline-block">
-                        <ul>
-                            <p>Opening hours:</p>
-                            {
-                                itemData.opening_hours.map((item,index)=>{
-                                    return <li>{item}</li>
-                                })
-                            }
-                        </ul>
-                        <p>{itemData.address}</p>
+                        <div className="table w-full">
+                            <ul className="table-cell">
+                                <p>Opening hours:</p>
+                                {
+                                    itemData.opening_hours.map((item,index)=>{
+                                        return <li>{item}</li>
+                                    })
+                                }
+                            </ul>
+                        </div>
+                        <p>Adress: {itemData.address}</p>
                     </div>
                 </div>
                 <ul id="Comments">
