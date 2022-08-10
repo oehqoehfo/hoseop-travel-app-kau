@@ -13,7 +13,13 @@ interface ItemDetail{
 const apiKey=process.env.apiKey;
 const Item= ()=>{
     const dispatch = useDispatch();
-    const [itemData,setItemDataState]=useState<ItemDetail>();
+    const [itemData,setItemDataState]=useState<ItemDetail>({
+        name:'',
+        opening_hours:[],
+        address:'',
+        reviews:[],
+        photoRef:''
+    });
     useEffect(()=>{
         dispatch(removeSearch());
         dispatch(viewItem());
@@ -37,6 +43,9 @@ const Item= ()=>{
         }).then((data:JSON)=>{
             setItemDataStateFunc(data);
         });
+    }
+    const getState=()=>{
+
     }
     return(
         <div id="ItemDetailContainer">
