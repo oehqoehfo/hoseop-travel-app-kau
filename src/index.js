@@ -120,14 +120,14 @@ app.get('/item',(req,res)=>{
     photoRef:''
   }
   try{
-    request({
-      uri:'https://maps.googleapis.com/maps/api/place/details/json',
-      qs:{
-        place_id:itemID,
-        key:apiKey,
-        language:'en'
+    const options={
+      proxy: process.env.QUOTAGUARDSTATIC_URL,
+      url:'https://maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',
+      headers: {
+        'User-Agent': 'node.js'
       }
-    },(err,req,body)=>{
+    }
+    request(options,(err,req,body)=>{
       const object = JSON.parse(body);
       const result = object.result;
       console.log(result);
