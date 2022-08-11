@@ -144,14 +144,8 @@ app.get('/item',(req,res)=>{
     photoRef:''
   }
   try{
-    const options={
-      proxy: process.env.QUOTAGUARDSTATIC_URL,
-      url:'https://maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',
-      headers: {
-        'User-Agent': 'node.js'
-      }
-    }
-    request(options,(err,req,body)=>{
+    const fixieRequest=request.defaults({'proxy':process.env.FIXIE_URL});
+    fixieRequest('//maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',(err,res,body)=>{
       const object = JSON.parse(body);
       const result = object.result;
       console.log(result);
@@ -167,6 +161,8 @@ app.get('/item',(req,res)=>{
       itemObject.photoRef=result.photos[0].photo_reference;
       res.send(itemObject);
     })
+
+
   }catch(e){
     console.log(e);
   }
