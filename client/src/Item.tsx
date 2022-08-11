@@ -25,7 +25,7 @@ const Item= ()=>{
         dispatch(viewItem());
         getItemData();
     },[]);
-    const setItemDataStateFunc = (data:Object)=>{
+    const setItemDataStateFunc = (data:ItemDetail)=>{
         setItemDataState(data);
     }
     const getItemData=()=>{
@@ -59,9 +59,13 @@ const Item= ()=>{
                             <ul className="table-cell">
                                 <p>Opening hours:</p>
                                 {
-                                    itemData?.opening_hours.map((item,index)=>{
-                                        return <li>{item}</li>
-                                    })
+                                    itemData?.opening_hours.length>0
+                                        ?
+                                        itemData?.opening_hours.map((item,index)=>{
+                                            return <li>{item}</li>
+                                        })
+                                        :
+                                    <p>No opening hours information provided</p>
                                 }
                             </ul>
                         </div>

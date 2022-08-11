@@ -71,8 +71,10 @@ app.get('/item',(req,res)=>{
       console.log(result);
       itemObject.name=object.result.name;
       itemObject.address=loopAddress(result.address_components);
-      for(let i=0;i<result.opening_hours.weekday_text.length;i++){
-        itemObject.opening_hours.push(result.opening_hours.weekday_text[i]);
+      if(result.opening_hours){
+        for(let i=0;i<result.opening_hours.weekday_text.length;i++){
+          itemObject.opening_hours.push(result.opening_hours.weekday_text[i]);
+        }
       }
       const englishReviews = getOnlyEnglishReviews(result.reviews);
       itemObject.reviews=sortReviewsByRating(englishReviews);
