@@ -25,6 +25,7 @@ app.get('/city',(req,res)=>{
   let resArray=[];
   try{
     if(process.env.NODE_ENV==="development"){
+      console.log("development");
     request({
       uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
       qs:{
