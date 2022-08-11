@@ -20,7 +20,8 @@ app.use(cors({
 
 //app.use(express.static(path.join(__dirname, '../dist')));
 app.get('/city',(req,res)=>{
-  console.log("allo allo");
+  console.log("NODE_ENV");
+  console.log(process.env.NODE_ENV);
   const cityname = req.query.name;
   let resArray=[];
   try{
@@ -51,7 +52,6 @@ app.get('/city',(req,res)=>{
       res.send(resArray);
     });
     }else if(process.env.NODE_ENV === "production"){
-      console.log("production");
       /*request({
         uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
         qs:{
