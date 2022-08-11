@@ -79,6 +79,8 @@ app.get('/city',(req,res)=>{
         res.send(resArray);
       });*/
       const fixieRequest=request.defaults({'proxy':process.env.FIXIE_URL});
+      console.log("fixie");
+      console.log(fixieRequest);
       fixieRequest('https://maps.googleapis.com/maps/api/place/textsearch/json?point of interest='+cityname+'&key='+apiKey,(err,res,body)=>{
         const object = JSON.parse(body);
         let photo;
@@ -101,7 +103,7 @@ app.get('/city',(req,res)=>{
       })
       /*const options={
         proxy: process.env.QUOTAGUARDSTATIC_URL,
-        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?place of interest='+cityname+'&key='+apiKey,
+        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?point of interest='+cityname+'&key='+apiKey,
         headers: {
             'User-Agent': 'node.js'
         }
