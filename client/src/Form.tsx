@@ -16,8 +16,7 @@ const Form = ({setResult}:searchProps)=>{
             regexValidate(searchValue)
             ?alert("No special characters are allowed")
             //send request to server if no special character is found
-            :fetch("//localhost:3000/city?name="+searchValue,{
-                //:fetch(serverURL+"/city?name="+searchValue,{
+                :fetch(process.env.serverURL+"/city?name="+searchValue,{
                     method:'GET',
                     credentials:'include',
                     headers:{

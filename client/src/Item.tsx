@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { removeSearch,viewItem } from './redux/action_functions';
+console.log(process.env);
+const serverURL = process.env.serverURL;
 interface ItemDetail{
     name:string,
     opening_hours:string[],
@@ -31,7 +33,7 @@ const Item= ()=>{
     const getItemData=()=>{
         const urlSplitArray = window.location.href.split("/");
         const itemID = urlSplitArray[urlSplitArray.length-1];
-        fetch("//localhost:3000/item?id="+itemID,{
+        fetch(process.env.serverURL+"/item?id="+itemID,{
             method:'GET',
             credentials:'include',
             headers:{

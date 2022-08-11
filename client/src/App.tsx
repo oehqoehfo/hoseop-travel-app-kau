@@ -4,7 +4,6 @@ import { ReducerState } from "./redux/reducer";
 import Result from './Result';
 import { Route,Routes } from "react-router-dom";
 import Form,{searchProps} from './Form';
-const serverURL = process.env.serverURL;
 //main application
  const App:React.FC=()=>{
     const [searchResult,setSearchResultState]=useState<Array<Object>>([]);
