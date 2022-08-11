@@ -83,6 +83,8 @@ app.get('/city',(req,res)=>{
       console.log("fixie");
       console.log(fixieRequest);
       fixieRequest('https://maps.googleapis.com/maps/api/place/textsearch/json?point of interest='+cityname+'&key='+apiKey,(err,res,body)=>{
+        console.log("checking res");
+        console.log(res);
         const object = JSON.parse(body);
         let photo;
         let placeObject={
