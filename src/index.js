@@ -10,6 +10,8 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.QUOTAGUARDSTATIC_URL;
 const agent = new HttpsProxyAgent(proxy);
 
+const helmet = require("helmet");
+app.use(helmet.frameguard("deny"));
 const apiKey=process.env.apiKey;
 app.use(cors({
   origin:'http://localhost:8080',
@@ -108,7 +110,62 @@ app.get('/city',(req,res)=>{
     console.log(e);
   }
 });
-
+app.get('/item',(req,res)=>{
+  const itemID = req.query.id;
+  const itemObject={
+    name:"",
+    address:"",
+    opening_hours:[],
+    reviews:[],
+    photoRef:''
+  }
+  try{
+    request({
+      uri:'https://maps.googleapis.com/maps/api/place/details/json',
+      qs:{
+        place_id:itemID,
+        key:apiKey,
+        language:'en'
+      }
+    },(err,req,body)=>{
+      const object = JSON.parse(body);
+      const result = object.result;
+      console.log(result);
+      itemObject.name=object.result.name;
+      itemObject.address=loopAddress(result.address_components);
+      if(result.opening_hours){
+        for(let i=0;i<result.opening_hours.weekday_text.length;i++){
+          itemObject.opening_hours.push(result.opening_hours.weekday_text[i]);
+        }
+      }
+      const englishReviews = getOnlyEnglishReviews(result.reviews);
+      itemObject.reviews=sortReviewsByRating(englishReviews);
+      itemObject.photoRef=result.photos[0].photo_reference;
+      res.send(itemObject);
+    })
+  }catch(e){
+    console.log(e);
+  }
+});
+const loopAddress=(addressComponent)=>{
+  let address='';
+  for(let i=0;i<addressComponent.length;i++){
+    address+=addressComponent[i].long_name+" ";
+  }
+  return address;
+}
+const getOnlyEnglishReviews=(reviews)=>{
+  let newReviews=[];
+  for(let i=0;i<reviews.length;i++){
+    if(reviews[i].language==="en"){
+      newReviews.push(reviews[i]);
+    }
+  }
+  return newReviews;
+}
+const sortReviewsByRating=(reviews)=>{
+  return reviews;
+}
 app.listen(process.env.PORT||port, () => {
   console.log(`Example app  listening on port ${process.env.PORT||port}!`)
 });
