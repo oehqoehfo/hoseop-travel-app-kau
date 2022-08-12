@@ -55,7 +55,7 @@ const Item= ()=>{
                 <h1>{itemData?.name}</h1>
                 <div id="DetailedInformationContainer">
                     <figure className="inline-block placeImage">
-                        <p>{itemData.photoRef}</p>
+                        <p>{itemData}</p>
                         <img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+itemData.photoRef+"&key="+clientApiKey}/>
                     </figure>
                     <div className="inline-block">
