@@ -10,6 +10,7 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.QUOTAGUARDSTATIC_URL;
 const agent = new HttpsProxyAgent(proxy);
 
+const router = express.Router();
 const helmet = require("helmet");
 app.use(helmet.frameguard("deny"));
 const apiKey=process.env.apiKey;
@@ -23,7 +24,7 @@ if(process.env.NODE_ENV==="production"){
 }
 
 //app.use(express.static(path.join(__dirname, '../dist')));
-app.get('/city',(req,res)=>{
+router.get('/city',(req,res)=>{
   const cityname = req.query.name;
   let resArray=[];
   try{
