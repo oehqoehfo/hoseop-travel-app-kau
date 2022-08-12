@@ -130,7 +130,7 @@ app.get('/item',(req,res)=>{
         'User-Agent':'node.js'
       }
     }
-    request(options,(err,res,body)=>{
+    request(options,(err,req,body)=>{
       const object = JSON.parse(body);
       console.log("body");
       console.log(body);
