@@ -125,7 +125,7 @@ app.get('/item',(req,res)=>{
   try{
     const options={
       proxy:process.env.FIXIE_RUL,
-      url:'//maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',
+      url:'https://maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',
       headers:{
         'User-Agent':'node.js'
       }
