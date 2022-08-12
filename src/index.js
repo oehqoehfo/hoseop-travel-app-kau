@@ -46,39 +46,11 @@ app.get('/city',(req,res)=>{
           placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
           placeObject['id']=object.results[i].place_id;
         }
-        //getImageOfPlace(photo);
         resArray[i]=Object.assign({},placeObject);
       }
       res.send(resArray);
     });
     }else if(process.env.NODE_ENV === "production"){
-      /*request({
-        uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
-        qs:{
-          query:"point of interest in"+cityname,
-          key:apiKey
-        },
-        agent:agent
-      },(err,request,body)=>{
-        const object = JSON.parse(body);
-        let photo;
-        let placeObject={
-          placeName:'',
-          photo:'',
-          id:''
-        }
-        for(let i=0;i<object.results.length;i++){
-          if(object.results[i].photos!==undefined){
-            placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
-            placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
-            placeObject['id']=object.results[i].place_id;
-          }
-          //getImageOfPlace(photo);
-          console.log(placeObject);
-          resArray[i]=Object.assign({},placeObject);
-        }
-        res.send(resArray);
-      });*/
 
       const options={
         proxy:process.env.FIXIE_URL,
@@ -102,7 +74,6 @@ app.get('/city',(req,res)=>{
             placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
             placeObject['id']=object.results[i].place_id;
           }
-          //getImageOfPlace(photo);
           console.log(placeObject);
           resArray[i]=Object.assign({},placeObject);
         }
@@ -132,10 +103,6 @@ app.get('/item',(req,res)=>{
     }
     request(options,(err,req,body)=>{
       const object = JSON.parse(body);
-      console.log("body");
-      console.log(body);
-      console.log("itemObject");
-      console.log(itemObject);
       const result = object.result;
       itemObject.name=object.result.name;
       itemObject.address=loopAddress(result.address_components);
@@ -177,15 +144,7 @@ app.listen(process.env.PORT||port, () => {
   console.log(`Example app  listening on port ${process.env.PORT||port}!`)
 });
 
-async function getImageOfPlace(place){
-  try{
-    const response = await fetch('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+place+'&key='+apiKey);
-    //const json = await response.json();
-    console.log(response);
-  }catch(e){
-    console.log(e);
-  }
-}
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, '../client/dist')));
