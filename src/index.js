@@ -14,7 +14,7 @@ const helmet = require("helmet");
 app.use(helmet.frameguard("deny"));
 const apiKey=process.env.apiKey;
 app.use(cors({
-  origin:'http://localhost:8080',
+  origin: process.env.NODE_ENV==="development"?"http://localhost:8080":"https://travel-app-kau.herokuapp.com/",
   credentials:true
 }));
 
