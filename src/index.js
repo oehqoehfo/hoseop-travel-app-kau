@@ -18,10 +18,12 @@ app.use(cors({
   credentials:true
 }));
 
+if(process.env.NODE_ENV==="production"){
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+}
+
 //app.use(express.static(path.join(__dirname, '../dist')));
 app.get('/city',(req,res)=>{
-  console.log("NODE_ENV");
-  console.log(process.env.NODE_ENV);
   const cityname = req.query.name;
   let resArray=[];
   try{
@@ -61,7 +63,6 @@ app.get('/city',(req,res)=>{
       };
       request(options,function(err,request,body){
         const object = JSON.parse(body);
-        console.log(object);
         let photo;
         let placeObject={
           placeName:'',
