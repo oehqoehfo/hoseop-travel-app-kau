@@ -143,7 +143,7 @@ app.get('/item',(req,res)=>{
       const englishReviews = getOnlyEnglishReviews(result.reviews);
       itemObject.reviews=sortReviewsByRating(englishReviews);
       itemObject.photoRef=result.photos[0].photo_reference;
-
+      console.log(itemObject);
       res.send(itemObject);
     });
 
