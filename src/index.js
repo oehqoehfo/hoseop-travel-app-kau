@@ -82,7 +82,7 @@ app.get('/city',(req,res)=>{
 
       const options={
         proxy:process.env.FIXIE_URL,
-        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?point of interest='+cityname+'&key='+apiKey,
+        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=point of interest='+cityname+'&key='+apiKey,
         headers: {
             'User-Agent': 'node.js'
         }
