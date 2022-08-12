@@ -82,7 +82,7 @@ app.get('/city',(req,res)=>{
       const fixieRequest=request.defaults({'proxy':process.env.FIXIE_URL});
       console.log("fixie");
       console.log(fixieRequest);
-      fixieRequest('https://maps.googleapis.com/maps/api/place/textsearch/json?point of interest='+cityname+'&key='+apiKey,(err,res,body)=>{
+      fixieRequest(('https://maps.googleapis.com/maps/api/place/textsearch/json?point of interest='+cityname+'&key='+apiKey),(err,res,body)=>{
         console.log("checking res");
         console.log(res);
         const object = JSON.parse(body);
@@ -147,7 +147,7 @@ app.get('/item',(req,res)=>{
   }
   try{
     const fixieRequest=request.defaults({'proxy':process.env.FIXIE_URL});
-    fixieRequest('//maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',(err,res,body)=>{
+    fixieRequest(('//maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en'),(err,res,body)=>{
       const object = JSON.parse(body);
       const result = object.result;
       console.log(result);
