@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const apiKey=process.env.apiKey;
 router.get('*',(req,res)=>{
     const cityname = req.query.name;
     let resArray=[];
