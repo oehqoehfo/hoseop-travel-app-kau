@@ -11,6 +11,7 @@ interface resultProps{
 }
 //const apiKey = process.env.REACT_APP_google_api_key;
 const apiKey=process.env.apiKey;
+const clientApiKey=process.env.apiKey;
 const Result=({result,setResult}:resultProps)=>{
     const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
     const searchKeyword = searchReducerObject.searchKeyword;
@@ -30,7 +31,7 @@ const Result=({result,setResult}:resultProps)=>{
                                     <Link key={index} to={`/place/${item[1].id}`} className="item w-1/3 md:w-1/4 ">
                                         <div key={"item-"+item+index} className="text-center text-white">
                                             <div>
-                                                {<img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+item[1]['photo']+"&key="+apiKey}/>}
+                                                {<img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+item[1]['photo']+"&key="+clientApiKey}/>}
                                             </div>    
                                             <div>
                                                 <p>{item[1]['placeName']}</p>

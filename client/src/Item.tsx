@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { removeSearch,viewItem } from './redux/action_functions';
 console.log(process.env);
 const serverURL = process.env.serverURL;
+const clientApiKey=process.env.clientApiKey;
 interface ItemDetail{
     name:string,
     opening_hours:string[],
@@ -54,7 +55,7 @@ const Item= ()=>{
                 <h1>{itemData?.name}</h1>
                 <div id="DetailedInformationContainer">
                     <figure className="inline-block placeImage">
-                        <img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+itemData.photoRef+"&key="+apiKey}/>
+                        <img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+itemData.photoRef+"&key="+clientApiKey}/>
                     </figure>
                     <div className="inline-block">
                         <div className="table w-full">
