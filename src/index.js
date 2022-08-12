@@ -123,11 +123,16 @@ app.get('/item',(req,res)=>{
     photoRef:''
   }
   try{
-    const fixieRequest=request.defaults({'proxy':process.env.FIXIE_URL});
-    fixieRequest(('//maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en'),(err,res,body)=>{
+    const options={
+      proxy:process.env.FIXIE_RUL,
+      url:'//maps.googleapis.com/maps/api/place/details/json?place_id='+itemID+'&key='+apiKey+'&language=en',
+      headers:{
+        'User-Agent':'node.js'
+      }
+    }
+    request(options,(err,res,body)=>{
       const object = JSON.parse(body);
       const result = object.result;
-      console.log(result);
       itemObject.name=object.result.name;
       itemObject.address=loopAddress(result.address_components);
       if(result.opening_hours){
@@ -138,9 +143,9 @@ app.get('/item',(req,res)=>{
       const englishReviews = getOnlyEnglishReviews(result.reviews);
       itemObject.reviews=sortReviewsByRating(englishReviews);
       itemObject.photoRef=result.photos[0].photo_reference;
-      res.send(itemObject);
-    })
 
+      res.send(itemObject);
+    });
 
   }catch(e){
     console.log(e);
