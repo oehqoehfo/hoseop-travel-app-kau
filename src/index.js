@@ -132,6 +132,10 @@ app.get('/item',(req,res)=>{
     }
     request(options,(err,res,body)=>{
       const object = JSON.parse(body);
+      console.log("body");
+      console.log(body);
+      console.log("itemObject");
+      console.log(itemObject);
       const result = object.result;
       itemObject.name=object.result.name;
       itemObject.address=loopAddress(result.address_components);
@@ -143,7 +147,6 @@ app.get('/item',(req,res)=>{
       const englishReviews = getOnlyEnglishReviews(result.reviews);
       itemObject.reviews=sortReviewsByRating(englishReviews);
       itemObject.photoRef=result.photos[0].photo_reference;
-      console.log(itemObject);
       res.send(itemObject);
     });
 
