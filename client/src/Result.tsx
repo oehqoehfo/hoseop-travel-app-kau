@@ -45,7 +45,7 @@ const Result=({result,setResult}:resultProps)=>{
                     </div>
                     :
                     <div className="absoluteCenter">
-                        <p>Unfortunately nothing was found :( </p>
+                        <p>Unfortunately, nothing was found :( </p>
                         <p>Your search keyword: {searchKeyword}</p> 
                         <Form setResult={setResult}/>   
                     </div>
