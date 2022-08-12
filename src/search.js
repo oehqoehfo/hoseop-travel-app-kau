@@ -62,4 +62,4 @@ router.get('*',(req,res)=>{
       console.log(e);
     }
   });
-export default router;
+module.exports={router};
