@@ -4,13 +4,13 @@ const port = 3000;
 const cors =require('cors');
 const request = require('request');
 const words = require('./words');
+const search = require('./search');
 require('dotenv').config();
 const path = require('path');
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.QUOTAGUARDSTATIC_URL;
 const agent = new HttpsProxyAgent(proxy);
 
-const router = express.Router();
 const helmet = require("helmet");
 app.use(helmet.frameguard("deny"));
 const apiKey=process.env.apiKey;
@@ -19,73 +19,9 @@ app.use(cors({
   credentials:true
 }));
 
-if(process.env.NODE_ENV==="production"){
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-}
 
 //app.use(express.static(path.join(__dirname, '../dist')));
-router.get('/city',(req,res)=>{
-  const cityname = req.query.name;
-  let resArray=[];
-  try{
-    if(process.env.NODE_ENV==="development"){
-    request({
-      uri:'https://maps.googleapis.com/maps/api/place/textsearch/json',
-      qs:{
-        query:"point of interest in"+cityname,
-        key:apiKey
-      }
-    },(err,request,body)=>{
-      const object = JSON.parse(body);
-      let photo;
-      let placeObject={
-        placeName:'',
-        photo:'',
-        id:''
-      }
-      for(let i=0;i<object.results.length;i++){
-        if(object.results[i].photos!==undefined){
-          placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
-          placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
-          placeObject['id']=object.results[i].place_id;
-        }
-        resArray[i]=Object.assign({},placeObject);
-      }
-      res.send(resArray);
-    });
-    }else if(process.env.NODE_ENV === "production"){
-
-      const options={
-        proxy:process.env.FIXIE_URL,
-        url: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=point of interest='+cityname+'&key='+apiKey,
-        headers: {
-            'User-Agent': 'node.js'
-        }
-      };
-      request(options,function(err,request,body){
-        const object = JSON.parse(body);
-        let photo;
-        let placeObject={
-          placeName:'',
-          photo:'',
-          id:''
-        }
-        for(let i=0;i<object.results.length;i++){
-          if(object.results[i].photos!==undefined){
-            placeObject['placeName']=words.returnWordsInEnglish(object.results[i].name);
-            placeObject['photo'] =object.results[i].photos[0]['photo_reference'];
-            placeObject['id']=object.results[i].place_id;
-          }
-          console.log(placeObject);
-          resArray[i]=Object.assign({},placeObject);
-        }
-        res.send(resArray);
-      });
-    }
-  }catch(e){
-    console.log(e);
-  }
-});
+app.use('/city',search);
 app.get('/item',(req,res)=>{
   const itemID = req.query.id;
   const itemObject={
