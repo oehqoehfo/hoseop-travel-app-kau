@@ -11,7 +11,7 @@ interface resultProps{
 }
 //const apiKey = process.env.REACT_APP_google_api_key;
 const apiKey=process.env.apiKey;
-const clientApiKey=process.env.apiKey;
+const clientApiKey=process.env.clientApiKey;
 const Result=({result,setResult}:resultProps)=>{
     const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
     const searchKeyword = searchReducerObject.searchKeyword;
