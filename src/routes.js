@@ -60,6 +60,7 @@ router.get('/city',(req,res)=>{
             resArray[i]=Object.assign({},placeObject);
           }
           res.send(resArray);
+          
         });
       }
     }catch(e){
