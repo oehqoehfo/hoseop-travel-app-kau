@@ -8,7 +8,7 @@ dotenv.config();
 const isDevelopment = process.env.NODE_ENV !== "production";
 module.exports = {
     mode: isDevelopment ? "development" : "production",
-    entry: "./src/index.tsx",
+    entry: "/src/index.tsx",
     devServer: {
       hot: true,
     },
