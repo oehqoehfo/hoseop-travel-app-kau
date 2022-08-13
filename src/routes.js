@@ -3,6 +3,7 @@ const router = express.Router();
 const apiKey=process.env.apiKey;
 const request = require('request');
 const words = require('./words');
+const path = require('path');
 router.get('/city',(req,res)=>{
     const cityname = req.query.name;
     let resArray=[];

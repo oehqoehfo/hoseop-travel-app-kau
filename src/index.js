@@ -6,7 +6,7 @@ const request = require('request');
 const words = require('./words');
 const routes = require('./routes');
 require('dotenv').config();
-const path = require('path');
+
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.QUOTAGUARDSTATIC_URL;
 const agent = new HttpsProxyAgent(proxy);
