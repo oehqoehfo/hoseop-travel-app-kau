@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { removeSearch,viewItem } from './redux/action_functions';
 console.log(process.env);
 const serverURL = process.env.serverURL;
+
+//define types of state object 
 interface ItemDetail{
     name:string,
     opening_hours:string[],
@@ -12,6 +14,8 @@ interface ItemDetail{
     reviews:string[],
     photoRef:string
 }
+
+//set different apikey value based on environment. 
 let apiKey:String="";
 if(process.env.NODE_ENV==="production"){
     apiKey=process.env.clientApiKey!;
@@ -28,8 +32,11 @@ const Item= ()=>{
         photoRef:''
     });
     useEffect(()=>{
+        //trigger actions
         dispatch(removeSearch());
         dispatch(viewItem());
+
+        //run this function to send request to server and retrieve data
         getItemData();
     },[]);
     const setItemDataStateFunc = (data:ItemDetail)=>{
@@ -48,11 +55,13 @@ const Item= ()=>{
         }).then((data:any)=>{
             return data.json();
         }).then((data:JSON)=>{
+            //when server returned valid data, then set the data as state. Component will be loaded again
             setItemDataStateFunc(data);
         });
     }
     return(
         <div id="ItemDetailContainer">
+            {/*Loop through the object state and render HTML*/}
             {Object.keys(itemData).length>0
             ?
             <div>
@@ -82,6 +91,7 @@ const Item= ()=>{
                 <ul id="Comments">
                     <h2>Comments</h2>
                     {
+                        {/*Loop through array reviews inside itemData and render data as HTML */}
                         Object.keys(itemData.reviews).map((key,index)=>{
                             
                             return(

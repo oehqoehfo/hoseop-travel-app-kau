@@ -1,16 +1,22 @@
 import { combineReducers } from "redux";
 import { Action } from "./action";
+
+//properties that reducer contains and theirs type
 type State={
     searched:boolean,
     itemViewed:boolean,
     searchKeyword:String
 }
+
+//initial value of states
 const initialState:State = {
     searched:false,
     itemViewed:false,
     searchKeyword:""
 }
 const searchReducer=(state=initialState,action:Action):State =>{
+
+    //change redux state when user performs specific redux action
     switch(action.type){
         case "SEARCH":
             return{

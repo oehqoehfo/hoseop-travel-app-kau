@@ -18,6 +18,8 @@ app.use(cors({
 
 //app.use(express.static(path.join(__dirname, '../dist')));
 app.use(routes);
+
+//when server gets request to /item
 app.get('/item',(req,res)=>{
   const itemID = req.query.id;
   const itemObject={
@@ -40,13 +42,13 @@ app.get('/item',(req,res)=>{
       const result = object.result;
       itemObject.name=object.result.name;
       itemObject.address=loopAddress(result.address_components);
+      //There are some places without opening hour information. 
       if(result.opening_hours){
         for(let i=0;i<result.opening_hours.weekday_text.length;i++){
           itemObject.opening_hours.push(result.opening_hours.weekday_text[i]);
         }
       }
       const englishReviews = getOnlyEnglishReviews(result.reviews);
-      itemObject.reviews=sortReviewsByRating(englishReviews);
       itemObject.photoRef=result.photos[0].photo_reference;
       res.send(itemObject);
     });
@@ -62,6 +64,7 @@ const loopAddress=(addressComponent)=>{
   }
   return address;
 }
+//there are some non-english reviews. Only save english reviews
 const getOnlyEnglishReviews=(reviews)=>{
   let newReviews=[];
   for(let i=0;i<reviews.length;i++){
@@ -70,9 +73,6 @@ const getOnlyEnglishReviews=(reviews)=>{
     }
   }
   return newReviews;
-}
-const sortReviewsByRating=(reviews)=>{
-  return reviews;
 }
 app.listen(process.env.PORT||port, () => {
   console.log(`Example app  listening on port ${process.env.PORT||port}!`)

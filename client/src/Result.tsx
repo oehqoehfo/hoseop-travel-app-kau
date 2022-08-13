@@ -32,6 +32,7 @@ const Result=({result,setResult}:resultProps)=>{
                             result.map((item,index)=>{
                                 //return /<div className="card" key={"item-"+item+index}>{item[1]['placeName']}</div>
                                 return (
+                                    //Create a link. Clicking the link, Reactjs will render Item component.
                                     <Link key={index} to={`/place/${item[1].id}`} className="item w-1/3 md:w-1/4 ">
                                         <div key={"item-"+item+index} className="text-center text-white">
                                             <div>
@@ -56,6 +57,7 @@ const Result=({result,setResult}:resultProps)=>{
                 :
                 null
             }
+            {/*create router */}
             <Routes>
                 <Route path="/place/:id" element={<Item/>}></Route>
             </Routes>

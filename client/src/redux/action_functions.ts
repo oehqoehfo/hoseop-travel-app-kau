@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 import { Action,ActionType } from "./action";
 
+//what does each redux actions do
 export const search=()=>{
     return(dispatch:Dispatch<Action>)=>{
         dispatch({

@@ -1,4 +1,5 @@
 
+//Some place name is written non latin letters. Change them to english
 module.exports={
     returnWordsInEnglish:function returnWordsInEnglish(word){
         let returnWord;

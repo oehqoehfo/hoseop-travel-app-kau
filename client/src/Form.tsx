@@ -1,12 +1,16 @@
 import React,{SyntheticEvent,useRef} from 'react';
 import { useDispatch } from 'react-redux';
 import { search as searchAction,setSearchKeyword} from './redux/action_functions';
+
+//retrieve props setResult as Array with object format
 export interface searchProps{
     setResult:(value: Array<Object>) => void
 }
 const Form = ({setResult}:searchProps)=>{
     const searchElementRef = useRef(null as any);
     const dispatch = useDispatch();
+
+    //search event
     const search = (e:SyntheticEvent)=>{
         const searchValue = searchElementRef.current.value;
         if(typeof searchValue!=="string"){
@@ -26,6 +30,7 @@ const Form = ({setResult}:searchProps)=>{
                     }
                 }).then((data:any)=>{
                     return data.json();
+                    //when search was successful and server returned valid data
                 }).then(data=>{
                     changeURLofPage(searchValue);
                     setResult(Object.entries(data));
