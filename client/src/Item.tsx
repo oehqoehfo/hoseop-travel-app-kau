@@ -91,7 +91,7 @@ const Item= ()=>{
                 <ul id="Comments">
                     <h2>Comments</h2>
                     {
-                        {/*Loop through array reviews inside itemData and render data as HTML */}
+                        //oop through array reviews inside itemData and render data as HTML
                         Object.keys(itemData.reviews).map((key,index)=>{
                             
                             return(
