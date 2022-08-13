@@ -5,6 +5,7 @@ const cors =require('cors');
 const request = require('request');
 const words = require('./words');
 const routes = require('./routes');
+const path = require('path');
 require('dotenv').config();
 
 const HttpsProxyAgent = require('https-proxy-agent');
