@@ -8,18 +8,13 @@ const routes = require('./routes');
 const path = require('path');
 require('dotenv').config();
 
-const HttpsProxyAgent = require('https-proxy-agent');
-const proxy = process.env.QUOTAGUARDSTATIC_URL;
-const agent = new HttpsProxyAgent(proxy);
-
 const helmet = require("helmet");
 app.use(helmet.frameguard("deny"));
 const apiKey=process.env.apiKey;
 app.use(cors({
-  origin: process.env.NODE_ENV==="development"?"http://localhost:8080":"https://travel-app-kau.herokuapp.com/",
+  origin: "http://localhost:8080",
   credentials:true
 }));
-
 
 //app.use(express.static(path.join(__dirname, '../dist')));
 app.use(routes);
