@@ -3,7 +3,7 @@ const router = express.Router();
 const apiKey=process.env.apiKey;
 const request = require('request');
 const words = require('./words');
-router.get('*',(req,res)=>{
+router.get('/city',(req,res)=>{
     const cityname = req.query.name;
     let resArray=[];
     try{
@@ -65,4 +65,10 @@ router.get('*',(req,res)=>{
       console.log(e);
     }
   });
+  if (process.env.NODE_ENV === "production") {
+    router.use(express.static(path.join(__dirname, '../client/dist')));
+    router.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname,  "../client/dist", "index.html"));
+    });
+  }
 module.exports=router;

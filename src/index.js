@@ -4,7 +4,7 @@ const port = 3000;
 const cors =require('cors');
 const request = require('request');
 const words = require('./words');
-const search = require('./search');
+const routes = require('./routes');
 require('dotenv').config();
 const path = require('path');
 const HttpsProxyAgent = require('https-proxy-agent');
@@ -21,7 +21,7 @@ app.use(cors({
 
 
 //app.use(express.static(path.join(__dirname, '../dist')));
-app.use('/city',search);
+app.use(routes);
 app.get('/item',(req,res)=>{
   const itemID = req.query.id;
   const itemObject={
@@ -84,9 +84,3 @@ app.listen(process.env.PORT||port, () => {
 
 
 
-if (process.env.NODE_ENV === "production") {
-  router.use(express.static(path.join(__dirname, '../client/dist')));
-  router.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname,  "../client/dist", "index.html"));
-  });
-}
