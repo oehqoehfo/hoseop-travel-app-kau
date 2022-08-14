@@ -50,6 +50,7 @@ app.get('/item',(req,res)=>{
       }
       const englishReviews = getOnlyEnglishReviews(result.reviews);
       itemObject.photoRef=result.photos[0].photo_reference;
+      itemObject.reviews=englishReviews;
       res.send(itemObject);
     });
 
@@ -81,6 +82,11 @@ app.listen(process.env.PORT||port, () => {
 
 
 if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname,  "../client/dist", "index.html"));
+  });
+}else{
   app.use(express.static(path.join(__dirname, '../client/dist')));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname,  "../client/dist", "index.html"));

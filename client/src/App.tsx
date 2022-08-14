@@ -18,7 +18,7 @@ import Form,{searchProps} from './Form';
     return (
     <section id="App">
         <Main setResult={setSearchResultFunc}/>
-        {
+        { 
             //show nothing if nothing is searched and no item is viewing
             !searchReducerObject.searched&&searchReducerObject.itemViewed===false
             ?""

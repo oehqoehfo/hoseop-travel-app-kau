@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { removeSearch,viewItem } from './redux/action_functions';
-console.log(process.env);
 const serverURL = process.env.serverURL;
 
 //define types of state object 
@@ -24,6 +23,7 @@ if(process.env.NODE_ENV==="production"){
 }
 const Item= ()=>{
     const dispatch = useDispatch();
+    let loopNumber:number=0;
     const [itemData,setItemDataState]=useState<ItemDetail>({
         name:'',
         opening_hours:[],
@@ -54,7 +54,7 @@ const Item= ()=>{
             }
         }).then((data:any)=>{
             return data.json();
-        }).then((data:JSON)=>{
+        }).then((data:ItemDetail)=>{
             //when server returned valid data, then set the data as state. Component will be loaded again
             setItemDataStateFunc(data);
         });
@@ -68,7 +68,11 @@ const Item= ()=>{
                 <h1>{itemData?.name}</h1>
                 <div id="DetailedInformationContainer">
                     <figure className="inline-block placeImage">
-                        <img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+itemData.photoRef+"&key="+apiKey}/>
+                        {
+                            itemData.photoRef
+                            ?<img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+itemData.photoRef+"&key="+apiKey}/>
+                            :null
+                        }
                     </figure>
                     <div className="inline-block">
                         <div className="table w-full">
@@ -78,7 +82,7 @@ const Item= ()=>{
                                     itemData?.opening_hours.length>0
                                         ?
                                         itemData?.opening_hours.map((item,index)=>{
-                                            return <li>{item}</li>
+                                            return <li key={index}>{item}</li>
                                         })
                                         :
                                     <p>No opening hours information provided</p>
@@ -93,9 +97,9 @@ const Item= ()=>{
                     {
                         //oop through array reviews inside itemData and render data as HTML
                         Object.keys(itemData.reviews).map((key,index)=>{
-                            
+                            loopNumber=loopNumber+1;
                             return(
-                            <li key={"item-"+index*index}>
+                            <li key={"item-"+loopNumber}>
                                 <div className="commentDiv">
                                     <div>
                                         <div className="w-1/2 text-center">{itemData?.reviews[index]['author_name' as '0']}</div>
