@@ -16,6 +16,7 @@ if(process.env.NODE_ENV==="production"){
 }else{
     apiKey=process.env.apiKey!;
 }
+alert(apiKey);
 const Result=({result,setResult}:resultProps)=>{
     const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
     const searchKeyword = searchReducerObject.searchKeyword;
