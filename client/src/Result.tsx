@@ -11,13 +11,10 @@ interface resultProps{
 }
 //const apiKey = process.env.REACT_APP_google_api_key;
 let apiKey:String="";
-alert(process.env.NODE_ENV);
 if(process.env.NODE_ENV==="production"){
-    alert("production");
     apiKey=process.env.clientApiKey!;
 }else{
     apiKey=process.env.apiKey!;
-    alert("development");
 }
 const Result=({result,setResult}:resultProps)=>{
     const searchReducerObject = useSelector((state:ReducerState)=>state['reducers'].searchReducer);
